@@ -1,5 +1,5 @@
 /*
- * Free assessment check — implements the exact logic in Part 6 of the build brief.
+ * Free assessment check. Implements the exact logic in Part 6 of the build brief.
  * Educational estimate only. Never surfaces a dollar figure or tells the user to appeal.
  */
 (function () {
@@ -67,7 +67,7 @@
     },
     borderline: {
       title: "Borderline",
-      body: "Your increase is somewhat above average. It may or may not be worth pursuing — the details matter here."
+      body: "Your increase is somewhat above average. It may or may not be worth pursuing; the details matter here."
     },
     inline: {
       title: "Roughly in line",
@@ -110,7 +110,7 @@
       deltaStat +
       "</div>" +
       "<p>" + copy.body + "</p>" +
-      '<p class="disclaimer">This is a general educational estimate based on the figures you entered — ' +
+      '<p class="disclaimer">This is a general educational estimate based on the figures you entered, ' +
       "not a professional opinion of value, and not a recommendation to appeal. " +
       "Whether an appeal makes sense depends on comparable sales and property details this tool doesn’t see.</p>" +
       '<p><strong>Want a professional’s take?</strong> ' +

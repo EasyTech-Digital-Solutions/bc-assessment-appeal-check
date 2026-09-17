@@ -1,6 +1,6 @@
 /*
  * Lead capture form: client-side validation + submission to /api/lead.
- * The consent checkbox is required and never pre-checked — see Part 2 / Part 10 of the brief.
+ * The consent checkbox is required and never pre-checked; see Part 2 / Part 10 of the brief.
  */
 (function () {
   "use strict";
@@ -36,10 +36,10 @@
       return;
     }
 
-    // Honeypot field — real users never fill this in.
+    // Honeypot field; real users never fill this in.
     var honeypot = form.querySelector('[name="company_website"]');
     if (honeypot && honeypot.value) {
-      showStatus("ok", "Thanks — we’ll be in touch.");
+      showStatus("ok", "Thanks, we’ll be in touch.");
       form.reset();
       return;
     }
@@ -75,7 +75,7 @@
         return res.json();
       })
       .then(function () {
-        showStatus("ok", "Thanks — we’ve received your information. A referred professional may reach out to discuss your situation.");
+        showStatus("ok", "Thanks, we’ve received your information. A referred professional may reach out to discuss your situation.");
         form.reset();
       })
       .catch(function (err) {

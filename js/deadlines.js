@@ -1,15 +1,15 @@
 /*
- * Current appeal-cycle deadlines. UPDATE THESE EVERY YEAR — see /deadlines
+ * Current appeal-cycle deadlines. UPDATE THESE EVERY YEAR: see /deadlines
  * for the sourcing note. PARP deadline is Jan 31, rolled forward to the
  * next business day on weekends/holidays (Interpretation Act). PAAB
- * deadline is April 30 and is firm — it is never rolled forward.
+ * deadline is April 30 and is firm; it is never rolled forward.
  */
 (function () {
   "use strict";
 
   var DEADLINES = {
     parp: { date: "2027-02-01", label: "PARP complaint deadline", note: "Jan 31, 2027 falls on a Sunday, so the deadline rolls forward to Monday, Feb 1, 2027." },
-    paab: { date: "2027-04-30", label: "PAAB appeal deadline", note: "Firm — no extensions, regardless of weekends or holidays." }
+    paab: { date: "2027-04-30", label: "PAAB appeal deadline", note: "Firm, no extensions, regardless of weekends or holidays." }
   };
 
   function daysUntil(dateStr) {
@@ -71,7 +71,7 @@
     var parpNode =
       '<div class="dt-node dt-node-mid" style="left:' + parpPct + '%">' +
       '<span class="dt-dot ' + (parpPassed ? "dt-dot-passed" : "dt-dot-parp") + '"></span>' +
-      '<span class="dt-node-label"><strong>PARP' + (parpPassed ? " — passed" : "") + '</strong>' + formatDate(DEADLINES.parp.date) + "<em>Free to file</em></span>" +
+      '<span class="dt-node-label"><strong>PARP' + (parpPassed ? " (passed)" : "") + '</strong>' + formatDate(DEADLINES.parp.date) + "<em>Free to file</em></span>" +
       "</div>";
 
     var todayNode =
@@ -88,12 +88,12 @@
 
     // Below the .dt-visual/.dt-stacked breakpoint (see CSS), the horizontal
     // version's fixed-width labels physically collide once PARP and PAAB
-    // sit close together on a narrow screen — confirmed by testing at
-    // 375px, not a hypothetical. The stacked list is a separate rendition
+    // sit close together on a narrow screen (confirmed by testing at
+    // 375px, not a hypothetical). The stacked list is a separate rendition
     // for that breakpoint, not a CSS reflow of the same markup.
     var stackedItems =
       '<li class="dt-stacked-item"><span class="dt-dot dt-dot-today"></span><span><strong>Today</strong></span></li>' +
-      '<li class="dt-stacked-item"><span class="dt-dot ' + (parpPassed ? "dt-dot-passed" : "dt-dot-parp") + '"></span><span><strong>PARP' + (parpPassed ? " — passed" : "") + '</strong> &middot; ' + formatDate(DEADLINES.parp.date) + ' <em>(Free to file)</em></span></li>' +
+      '<li class="dt-stacked-item"><span class="dt-dot ' + (parpPassed ? "dt-dot-passed" : "dt-dot-parp") + '"></span><span><strong>PARP' + (parpPassed ? " (passed)" : "") + '</strong> &middot; ' + formatDate(DEADLINES.parp.date) + ' <em>(Free to file)</em></span></li>' +
       '<li class="dt-stacked-item"><span class="dt-dot dt-dot-paab"></span><span><strong>PAAB</strong> &middot; ' + formatDate(DEADLINES.paab.date) + ' <em>($30 fee &middot; firm)</em></span></li>';
 
     el.innerHTML =

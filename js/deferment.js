@@ -1,18 +1,18 @@
 /*
- * Property Tax Deferment eligibility checker — a simple decision tree, run
+ * Property Tax Deferment eligibility checker: a simple decision tree, run
  * entirely client-side. The values you enter never leave your browser, and
  * there is no lead form on this tool (see Part 11 of the build brief). The
- * one exception: we log two anonymous GA4 events — one when someone starts
+ * one exception: we log two anonymous GA4 events, one when someone starts
  * filling in the form, and one on a completed check with just the outcome
- * tier (eligible/unsure/ineligible) — no answers ever attached, so we can
+ * tier (eligible/unsure/ineligible), no answers ever attached, so we can
  * see how many people start vs. finish.
  *
- * CURRENT RATE / THRESHOLDS — verify against gov.bc.ca before updating:
+ * CURRENT RATE / THRESHOLDS: verify against gov.bc.ca before updating:
  * https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees/current-previous-rates
  * Both programs charge compound interest at Prime + 2% for the 2026 tax
  * year onward (this replaced the old, lower, simple-interest formula that
  * differed by program). The rate resets roughly every six months
- * (Apr 1 / Oct 1) — check quarterly, not just annually.
+ * (Apr 1 / Oct 1); check quarterly, not just annually.
  */
 (function () {
   "use strict";
@@ -25,7 +25,7 @@
     effectiveTo: "Sep 30, 2026"
   };
 
-  // Illustrative only — Tool 2 never collects a tax amount (see Part 11:
+  // Illustrative only. Tool 2 never collects a tax amount (see Part 11:
   // "no lead form on this tool," and the eligibility check itself asks for
   // status/residency/equity, never a dollar figure to defer). This chart
   // exists to show the SHAPE of compound growth (it curves, it doesn't stay
@@ -68,7 +68,7 @@
 
     return (
       '<div class="cost-chart">' +
-      '<p class="cost-chart-caption">Example only — a hypothetical ' + formatDollars(ILLUSTRATIVE_PRINCIPAL) + " deferred in year 1, at today's " + CURRENT_RATE.percent + '% compound rate, assuming the rate never changes and nothing is paid down. Not a projection of your own taxes, which this tool never asks for.</p>' +
+      '<p class="cost-chart-caption">Example only: a hypothetical ' + formatDollars(ILLUSTRATIVE_PRINCIPAL) + " deferred in year 1, at today's " + CURRENT_RATE.percent + '% compound rate, assuming the rate never changes and nothing is paid down. Not a projection of your own taxes, which this tool never asks for.</p>' +
       rows +
       '<p class="visually-hidden">Illustrative growth of a hypothetical ' + formatDollars(ILLUSTRATIVE_PRINCIPAL) + " at " + CURRENT_RATE.percent + "% compound interest: " + hiddenSummary + ".</p>" +
       "</div>"
@@ -132,13 +132,13 @@
 
     var notes = [];
     if (data.currentPaid === "yes") {
-      notes.push("You mentioned this year's property taxes are already paid in full. Deferment only applies to taxes not yet paid — this would apply starting next tax year, not the one you already paid.");
+      notes.push("You mentioned this year's property taxes are already paid in full. Deferment only applies to taxes not yet paid, so this would apply starting next tax year, not the one you already paid.");
     }
 
     if (equityUnsure) {
       return {
         tier: "unsure",
-        title: "Status looks promising — but we need your equity position to say more",
+        title: "Status looks promising, but we need your equity position to say more",
         reasons: [
           (qualifiesRegularStatus ? "You may meet the Regular Program's status requirement (minimum 25% equity needed). " : "") +
           (qualifiesFamiliesStatus ? "You may meet the Families with Children Program's status requirement (minimum 15% equity needed)." : "")
@@ -153,7 +153,7 @@
         title: "You may qualify for both programs",
         reasons: [
           "Based on what you entered, you may meet the requirements for both the Regular Program and the Families with Children Program.",
-          "Both currently charge the same interest rate. The Families with Children Program has no application or renewal fees, while the Regular Program charges a $60 one-time application fee plus $10/year to renew — worth factoring in if you qualify for both."
+          "Both currently charge the same interest rate. The Families with Children Program has no application or renewal fees, while the Regular Program charges a $60 one-time application fee plus $10/year to renew, worth factoring in if you qualify for both."
         ],
         notes: notes
       };
@@ -214,7 +214,7 @@
       html +=
         '<div class="card" style="margin-top:1rem; background:#fff;">' +
         "<h4 style=\"margin-top:0;\">What this actually costs over time</h4>" +
-        "<p>Deferment is a loan against your home equity, not free money. Currently, both programs charge <strong>" + CURRENT_RATE.percent + "% compound interest</strong> (prime of " + CURRENT_RATE.prime + "% + " + CURRENT_RATE.spread + "%), compounding monthly — for taxes deferred in the 2026 tax year and later. Unlike the old simple-interest rules, interest now accrues on interest, so the amount owed grows faster the longer it's deferred.</p>" +
+        "<p>Deferment is a loan against your home equity, not free money. Currently, both programs charge <strong>" + CURRENT_RATE.percent + "% compound interest</strong> (prime of " + CURRENT_RATE.prime + "% + " + CURRENT_RATE.spread + "%), compounding monthly for taxes deferred in the 2026 tax year and later. Unlike the old simple-interest rules, interest now accrues on interest, so the amount owed grows faster the longer it's deferred.</p>" +
         buildCostChart() +
         "<p>The deferred taxes plus all accumulated interest become due when you sell or transfer the property, and the province places a restrictive lien on your title for as long as taxes are deferred. This can affect refinancing or a future sale until it's paid off.</p>" +
         "<p style=\"margin-bottom:0;\">Whether that trade, cash flow relief now against a larger bill later, makes sense depends on your own plans and finances. This tool doesn't make that call for you.</p>" +

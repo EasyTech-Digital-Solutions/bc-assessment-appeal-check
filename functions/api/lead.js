@@ -10,7 +10,7 @@
  * Rate limiting: a fixed-window counter per client IP, stored in the same
  * KV namespace (`ratelimit:<ip>`, TTL-expired automatically by KV). This is
  * a basic spam deterrent appropriate for a low-traffic lead form, not a
- * precise sliding-window limiter — that would need Durable Objects, which
+ * precise sliding-window limiter; that would need Durable Objects, which
  * is more infrastructure than this form's traffic justifies.
  */
 
@@ -71,7 +71,7 @@ export async function onRequestPost(context) {
   }
 
   if (data && typeof data.company_website === "string" && data.company_website.trim() !== "") {
-    // Honeypot tripped — pretend success, don't store.
+    // Honeypot tripped; pretend success, don't store.
     return jsonResponse({ ok: true });
   }
 

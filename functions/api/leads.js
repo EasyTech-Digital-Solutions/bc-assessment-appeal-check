@@ -2,7 +2,7 @@
  * GET /api/leads
  *
  * Minimal token-protected endpoint to view captured leads until a real
- * partner/CRM integration exists. Not a public page — do not link to it
+ * partner/CRM integration exists. Not a public page; do not link to it
  * from the site nav.
  *
  * Auth: requires header  Authorization: Bearer <ADMIN_TOKEN>
