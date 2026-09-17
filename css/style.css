@@ -92,6 +92,30 @@ a:hover { color: var(--charcoal); }
 }
 .main-nav a:hover, .main-nav a[aria-current="page"] { color: #fff; text-decoration: underline; }
 
+.main-nav li.nav-tool { position: relative; }
+.nav-tool-badge {
+  position: absolute;
+  top: -11px;
+  right: -10px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--terracotta);
+  color: #fff;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  white-space: nowrap;
+  animation: nav-tool-blink 1.1s steps(1, end) infinite;
+}
+@keyframes nav-tool-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-tool-badge { animation: none; }
+}
+
 /* Hero */
 .hero {
   background: linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
