@@ -16,6 +16,15 @@
   var municipalityInput = document.getElementById("propertyMunicipality");
   var ctaSection = document.getElementById("lead-section");
 
+  var hasFiredStart = false;
+  form.addEventListener("focusin", function () {
+    if (hasFiredStart) return;
+    hasFiredStart = true;
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "assessment_check_started");
+    }
+  });
+
   function combinedAddress() {
     var street = addressInput ? addressInput.value.trim() : "";
     var municipality = municipalityInput ? municipalityInput.value.trim() : "";

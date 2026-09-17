@@ -2,9 +2,10 @@
  * Property Tax Deferment eligibility checker — a simple decision tree, run
  * entirely client-side. The values you enter never leave your browser, and
  * there is no lead form on this tool (see Part 11 of the build brief). The
- * one exception: on a completed check, we log an anonymous GA4 event with
- * just the outcome tier (eligible/unsure/ineligible), no inputs attached,
- * so we can see whether the tool is actually being used.
+ * one exception: we log two anonymous GA4 events — one when someone starts
+ * filling in the form, and one on a completed check with just the outcome
+ * tier (eligible/unsure/ineligible) — no answers ever attached, so we can
+ * see how many people start vs. finish.
  *
  * CURRENT RATE / THRESHOLDS — verify against gov.bc.ca before updating:
  * https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees/current-previous-rates
@@ -86,6 +87,15 @@
   var form = document.getElementById("deferment-form");
   if (!form) return;
   var resultBox = document.getElementById("deferment-result");
+
+  var hasFiredStart = false;
+  form.addEventListener("focusin", function () {
+    if (hasFiredStart) return;
+    hasFiredStart = true;
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "deferment_check_started");
+    }
+  });
 
   function evaluate(data) {
     if (data.residency !== "yes") {
