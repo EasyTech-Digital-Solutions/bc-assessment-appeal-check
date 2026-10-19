@@ -6,3 +6,6 @@ Thumbs.db
 playwright-report/
 test-results/
 blob-report/
+
+# Internal notes and plans (kept out of the repo)
+docs/

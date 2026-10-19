@@ -12,9 +12,7 @@
   var currentInput = document.getElementById("currentValue");
   var previousInput = document.getElementById("previousValue");
   var neighbourhoodInput = document.getElementById("neighbourhoodChange");
-  var addressInput = document.getElementById("propertyAddress");
   var municipalityInput = document.getElementById("propertyMunicipality");
-  var ctaSection = document.getElementById("lead-section");
 
   var hasFiredStart = false;
   form.addEventListener("focusin", function () {
@@ -24,13 +22,6 @@
       window.gtag("event", "assessment_check_started");
     }
   });
-
-  function combinedAddress() {
-    var street = addressInput ? addressInput.value.trim() : "";
-    var municipality = municipalityInput ? municipalityInput.value.trim() : "";
-    if (street && municipality) return street + ", " + municipality;
-    return street || municipality;
-  }
 
   function parseMoney(value) {
     if (!value) return null;
@@ -113,17 +104,20 @@
       '<p class="disclaimer">This is a general educational estimate based on the figures you entered, ' +
       "not a professional opinion of value, and not a recommendation to appeal. " +
       "Whether an appeal makes sense depends on comparable sales and property details this tool doesn’t see.</p>" +
-      '<p><strong>Want a professional’s take?</strong> ' +
-      '<a href="#lead-section" class="btn btn-secondary">Connect with a BC property tax professional →</a></p>';
+      nextSteps();
+  }
 
-    if (window.__setLeadPrefill) {
-      window.__setLeadPrefill({
-        currentValue: currentInput.value,
-        previousValue: previousInput.value,
-        address: combinedAddress(),
-        yourChange: fmtPercent(yourChange)
-      });
-    }
+  function nextSteps() {
+    return (
+      '<div class="next-steps">' +
+      "<h4>What to do next</h4>" +
+      "<ul>" +
+      '<li><a href="https://www.bcassessment.ca" target="_blank" rel="noopener">Look up recent sales near you</a> on BC Assessment’s free property search.</li>' +
+      '<li><a href="/evidence">See what evidence actually helps</a> a complaint.</li>' +
+      '<li><a href="https://info.bcassessment.ca/services-and-products/Pages/About-Appeals.aspx" target="_blank" rel="noopener">File a free complaint</a> with BC Assessment before the <a href="/deadlines">deadline</a>.</li>' +
+      '<li>Already had a review panel decision? The <a href="https://www.assessmentappeal.bc.ca" target="_blank" rel="noopener">Property Assessment Appeal Board</a> is the next step.</li>' +
+      "</ul></div>"
+    );
   }
 
   form.addEventListener("submit", function (e) {

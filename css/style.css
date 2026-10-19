@@ -589,3 +589,18 @@ table th { background: var(--bg-soft); }
     min-width: 0;
   }
 }
+
+/* Page review date and sources line */
+.last-reviewed { font-size: 0.9rem; color: var(--ink-soft); margin: 0; }
+
+/* Next steps box inside a calculator result */
+.next-steps { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+.next-steps h4 { margin: 0 0 0.5rem; font-size: 1rem; }
+.next-steps ul { margin: 0; padding-left: 1.25rem; }
+.next-steps li { margin: 0.35rem 0; }
+
+/* Affiliate link slots (filled by js/affiliates.js, hidden until a link exists) */
+.affiliate { margin: 1rem 0 0; padding: 0.75rem 1rem; border: 1px dashed var(--border); border-radius: var(--radius); background: var(--bg-soft); }
+.affiliate[hidden] { display: none; }
+.affiliate a { font-weight: 600; }
+.affiliate-note { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }

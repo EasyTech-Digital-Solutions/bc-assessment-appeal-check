@@ -1,0 +1,48 @@
+{
+  "_note": "Update every January. Each value must be checked at its source before publishing. Set verified to true only after checking.",
+  "last_reviewed": "2026-10",
+  "assessment_year": 2027,
+  "deadlines": {
+    "assessment_release": { "value": "2027-01-02", "verified": false, "source": "https://info.bcassessment.ca/news" },
+    "parp_complaint": { "value": "2027-02-01", "verified": false, "note": "January 31, 2027 is a Sunday, so next business day", "source": "https://info.bcassessment.ca/services-and-products/Pages/About-Appeals.aspx" },
+    "parp_hearings_end": { "value": "2027-03-15", "verified": false, "source": "https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/assessment-appeal" },
+    "paab_appeal": { "value": "2027-04-30", "verified": false, "source": "https://www.assessmentappeal.bc.ca" },
+    "svt_declaration": { "value": "2027-03-31", "verified": false, "source": "https://www2.gov.bc.ca/gov/content/taxes/speculation-vacancy-tax" },
+    "vancouver_empty_homes": { "value": "", "verified": false, "source": "https://vancouver.ca/home-property-development/empty-homes-tax.aspx" },
+    "property_tax_due": { "value": "", "verified": false, "note": "Usually early July, varies by city" }
+  },
+  "banner": {
+    "show_from": "2027-01-01",
+    "show_until": "2027-02-01",
+    "text": "2027 complaint deadline: February 1, 2027. Check yours free."
+  },
+  "fees": {
+    "parp_filing": { "value": 0, "verified": false },
+    "paab_residential": { "value": 30, "verified": false }
+  },
+  "home_owner_grant": {
+    "year": 2026,
+    "threshold": { "value": 2075000, "verified": false, "source": "https://www.gov.bc.ca/homeownergrant" },
+    "reduction_per_1000_over": 5,
+    "basic_grant_metro_crd_fvrd": 570,
+    "basic_grant_elsewhere": 770,
+    "min_tax_basic": 350,
+    "min_tax_additional": 100
+  },
+  "deferment": {
+    "source": "https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees",
+    "prime_rate": { "value": 4.45, "verified": false, "note": "Prefill only, user can edit" },
+    "old_terms_2025_and_earlier": {
+      "regular": { "formula": "prime_minus_2_simple" },
+      "families": { "formula": "prime_simple" }
+    },
+    "new_terms_2026_onward": {
+      "regular": { "formula": "prime_plus_2_compound_monthly" },
+      "families": { "formula": "prime_plus_2_compound_monthly" }
+    }
+  },
+  "svt": {
+    "foreign_owner_rate_2027": { "value": 4, "verified": false },
+    "foreign_owner_rate_2026": { "value": 3, "verified": false }
+  }
+}
