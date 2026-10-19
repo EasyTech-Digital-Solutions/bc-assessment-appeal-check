@@ -1,0 +1,32 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PropertyTaxBC//Deadlines//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:BC property tax deadlines 2027
+BEGIN:VEVENT
+UID:parp-2027@propertytaxbc.ca
+DTSTAMP:20261019T000000Z
+DTSTART;VALUE=DATE:20270201
+DTEND;VALUE=DATE:20270202
+SUMMARY:BC assessment complaint (PARP) deadline
+DESCRIPTION:Last day to file a free complaint with BC Assessment. Confirm at bcassessment.ca. https://propertytaxbc.ca/deadlines
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:BC assessment complaint (PARP) deadline in 7 days
+TRIGGER:-P7D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:paab-2027@propertytaxbc.ca
+DTSTAMP:20261019T000000Z
+DTSTART;VALUE=DATE:20270430
+DTEND;VALUE=DATE:20270501
+SUMMARY:PAAB appeal deadline
+DESCRIPTION:Last day to appeal a PARP decision to the Property Assessment Appeal Board. Firm, no extensions. https://propertytaxbc.ca/deadlines
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:PAAB appeal deadline in 7 days
+TRIGGER:-P7D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

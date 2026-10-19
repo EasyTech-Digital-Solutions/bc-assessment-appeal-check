@@ -1,9 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const PAGES = [
-  '/', '/how-it-works/', '/deadlines/', '/evidence/', '/faq/',
-  '/about/', '/privacy/', '/terms/', '/deferment/', '/404.html',
-];
+const { PAGES, blockThirdParty } = require('./helpers');
 
 for (const path of PAGES) {
   test.describe(`page: ${path}`, () => {
@@ -12,6 +9,7 @@ for (const path of PAGES) {
       page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
       page.on('console', (msg) => { if (msg.type() === 'error') errors.push('console: ' + msg.text()); });
 
+      await blockThirdParty(page);
       const response = await page.goto(path);
       expect(response.status()).toBe(200);
 

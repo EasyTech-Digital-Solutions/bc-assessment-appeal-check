@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
 <head>
 <meta charset="UTF-8">
 <meta name="google-adsense-account" content="ca-pub-6309879983967574">
@@ -9,8 +9,8 @@
 <!-- Google AdSense (auto ads; placements controlled in the AdSense dashboard) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6309879983967574" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BC Property Tax Deferment Eligibility Checker | PropertyTaxBC</title>
-<meta name="description" content="Check whether you likely qualify for BC's Regular or Families with Children property tax deferment program, see the current interest rate, and apply directly through gov.bc.ca.">
+<title>BC Property Tax Deferment Checker and Cost Calculator | PropertyTaxBC</title>
+<meta name="description" content="Check whether you qualify for BC property tax deferment, see what deferring would cost at the 2026 rate of 6.45% compound, and compare it with a line of credit.">
 <link rel="canonical" href="https://propertytaxbc.ca/deferment">
 <meta name="theme-color" content="#241f1c">
 <meta property="og:type" content="website">
@@ -62,6 +62,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="nav-wrap">
     <a class="brand" href="/">
@@ -81,7 +82,7 @@
   </div>
 </header>
 
-<main>
+<main id="main">
   <section class="hero">
     <div class="container">
       <h1>Property Tax Deferment Eligibility Checker</h1>
@@ -166,11 +167,68 @@
           <div class="card">
             <h3 style="margin-top:0;">Current interest rate</h3>
             <p style="font-size:1.8rem; font-weight:700; color:var(--terracotta-dark); margin:0;">6.45%</p>
-            <p class="hint" style="margin-top:0.25rem;">Compound, prime (4.45%) + 2% &mdash; effective Jul 1&ndash;Sep 30, 2026. Applies to both programs for taxes deferred from the 2026 tax year onward. This rate resets roughly every six months &mdash; always confirm the current figure on <a href="https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees" target="_blank" rel="noopener">gov.bc.ca</a>.</p>
+            <p class="hint" style="margin-top:0.25rem;">Compound, prime (4.45%) + 2% &mdash; effective Oct 1&ndash;Dec 31, 2026. Applies to both programs for taxes deferred from the 2026 tax year onward. This rate resets roughly every six months &mdash; always confirm the current figure on <a href="https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees" target="_blank" rel="noopener">gov.bc.ca</a>.</p>
           </div>
           <div class="card" style="margin-top:1.25rem;">
             <h3 style="margin-top:0;">It's a loan, not free money</h3>
             <p style="margin-bottom:0;">Deferred taxes plus accumulating interest are repaid when you sell or transfer the property, and the province places a restrictive lien on your title while deferred. This tool presents the trade-off; it doesn't tell you whether to defer.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cost">
+    <div class="container">
+      <div style="display:grid; grid-template-columns: minmax(0,1.1fr) minmax(0,0.9fr); gap:2.5rem; align-items:start;" class="check-grid">
+        <div>
+          <h2>What would deferring cost?</h2>
+          <p class="section-intro">See how much you'd owe after deferring your property tax for a number of years, under the new 2026 rules and the old pre 2026 rules, and compared with paying the tax from a line of credit. Everything runs in your browser.</p>
+
+          <form id="cost-form" class="calc-card" novalidate>
+            <div class="field">
+              <label for="annualTax">Property tax you'd defer each year ($)</label>
+              <input type="text" inputmode="numeric" id="annualTax" name="annualTax" placeholder="e.g. 5400" required>
+              <div class="hint">Your total property tax bill minus any home owner grant.</div>
+            </div>
+            <div class="field">
+              <label for="years">Number of years you'd defer</label>
+              <input type="number" inputmode="numeric" id="years" name="years" min="1" max="40" value="10" required>
+            </div>
+            <div class="field">
+              <label for="program">Program</label>
+              <select id="program" name="program">
+                <option value="regular">Regular (55+, surviving spouse, or disability)</option>
+                <option value="families">Families with Children</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="primeRate">Prime rate used by the province (%)</label>
+              <input type="text" inputmode="decimal" id="primeRate" name="primeRate" value="4.45" required>
+              <div class="hint">4.45% for Oct 1 to Dec 31, 2026. The province resets it every three months; check <a href="https://www2.gov.bc.ca/gov/content/taxes/property-taxes/annual-property-tax/property-tax-deferment-program/tax-deferment-interest-fees/current-previous-rates" target="_blank" rel="noopener">current rates</a>.</div>
+            </div>
+            <div class="field">
+              <label for="locRate">Line of credit rate to compare (%) <span style="font-weight:400;">(optional)</span></label>
+              <input type="text" inputmode="decimal" id="locRate" name="locRate" placeholder="e.g. 6.95">
+              <div class="hint">If you'd otherwise pay your tax with a home equity line of credit, enter its rate.</div>
+            </div>
+            <button type="submit" class="btn btn-block">Show the cost</button>
+          </form>
+
+          <div id="cost-result" class="result" role="status" aria-live="polite"></div>
+          <p class="affiliate" data-affiliate="ratehub_heloc" hidden></p>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h3 style="margin-top:0;">How this is worked out</h3>
+            <p>Each year's tax is deferred once a year, around the July due date, and grows until the end of the period.</p>
+            <ul style="padding-left:1.1rem;">
+              <li><strong>New rules</strong> (taxes deferred for 2026 and later): prime plus 2%, compounding monthly, both programs.</li>
+              <li><strong>Old rules</strong> (2025 and earlier, shown only for comparison): Regular at prime minus 2%, Families at prime, simple interest.</li>
+              <li><strong>Fees:</strong> Regular program only, $60 to apply and $10 a year to renew.</li>
+            </ul>
+            <p class="hint" style="margin-bottom:0;">Assumes the rate stays the same the whole time. In reality it changes every quarter. This is an estimate, not a statement of what you'd owe.</p>
           </div>
         </aside>
       </div>
@@ -189,6 +247,9 @@
 
       <h3>The interest, and why 2026 changed the math</h3>
       <p>Deferred taxes accrue interest until repaid. For tax years 2025 and earlier, that interest was simple and the two programs had different rates (Regular ran two points below prime; Families with Children ran at prime). Starting with the 2026 tax year, both programs charge <strong>compound interest at prime plus 2%</strong>, currently 6.45%, compounding monthly rather than once. In practice, that means interest is charged on interest that's already accrued, so a deferred balance grows faster over time than it would have under the old rules. Taxes deferred in 2025 or earlier keep the old simple-interest terms; only 2026-and-later deferrals are affected.</p>
+
+      <h3>Claim the home owner grant first</h3>
+      <p>Deferment covers the tax left after your home owner grant. Claim the grant first, then defer the rest. The <a href="/home-owner-grant">grant calculator</a> shows what you'd get.</p>
 
       <h3>What happens when you sell or transfer</h3>
       <p>The full deferred amount, plus all interest that's accumulated, becomes due at that point. Until then, the province registers a restrictive lien against your property's title, which can come up if you try to refinance or take out a new line of credit while taxes are deferred.</p>
@@ -241,30 +302,38 @@
           <li><a href="/deadlines">Deadlines</a></li>
           <li><a href="/evidence">Evidence</a></li>
           <li><a href="/faq">FAQ</a></li>
+          <li><a href="/glossary">Glossary</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="/">Appeal Check</a></li>
+          <li><a href="/deferment">Deferment Check</a></li>
+          <li><a href="/home-owner-grant">Home Owner Grant</a></li>
         </ul>
       </div>
       <div>
         <h4>Site</h4>
         <ul>
-          <li><a href="/deferment">Deferment Check</a></li>
           <li><a href="/about">About</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <ul>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/editorial-policy">Editorial Policy</a></li>
           <li><a href="/privacy">Privacy Policy</a></li>
           <li><a href="/terms">Terms of Use</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-legal">
-      <p>PropertyTaxBC is an independent educational resource. We are not affiliated with, endorsed by, or connected to BC Assessment, the Property Assessment Review Panel, the Property Assessment Appeal Board, the Property Tax Deferment Program, or the Government of British Columbia.</p>
+      <p>PropertyTaxBC is an independent educational resource. We are not affiliated with, endorsed by, or connected to BC Assessment, the Property Assessment Review Panel, the Property Assessment Appeal Board, or the Government of British Columbia.</p>
       <p>&copy; 2026 PropertyTaxBC. A project of <a href="https://easytechvancouver.ca" target="_blank" rel="noopener">EasyTech Digital Solutions</a>.</p>
     </div>
   </div>
 </footer>
 
 <script src="/js/deferment.js"></script>
+<script src="/js/deferment-cost.js"></script>
+<script src="/js/affiliates.js"></script>
+<script src="/js/analytics-events.js"></script>
 </body>
 </html>
