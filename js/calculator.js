@@ -113,8 +113,8 @@
       "<h4>What to do next</h4>" +
       "<ul>" +
       '<li><a href="https://www.bcassessment.ca" target="_blank" rel="noopener">Look up recent sales near you</a> on BC Assessment’s free property search.</li>' +
-      '<li><a href="/evidence">See what evidence actually helps</a> a complaint.</li>' +
-      '<li><a href="https://info.bcassessment.ca/services-and-products/Pages/About-Appeals.aspx" target="_blank" rel="noopener">File a free complaint</a> with BC Assessment before the <a href="/deadlines">deadline</a>.</li>' +
+      '<li><a href="/evidence/">See what evidence actually helps</a> a complaint.</li>' +
+      '<li><a href="https://info.bcassessment.ca/services-and-products/Pages/About-Appeals.aspx" target="_blank" rel="noopener">File a free complaint</a> with BC Assessment before the <a href="/deadlines/">deadline</a>.</li>' +
       '<li>Already had a review panel decision? The <a href="https://www.assessmentappeal.bc.ca" target="_blank" rel="noopener">Property Assessment Appeal Board</a> is the next step.</li>' +
       "</ul></div>"
     );

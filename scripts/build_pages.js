@@ -118,7 +118,7 @@ function grantPage() {
       <h3>The minimum tax rule</h3>
       <p>The grant can't bring your bill below $${g.min_tax_regular}, or $${g.min_tax_additional} if you get the additional grant. If your tax is low, your grant is limited to whatever is left above that minimum.</p>
       <h3>Grant or deferment?</h3>
-      <p>They work together. You claim the grant first, then you can defer what's left of your tax if you qualify. Use the <a href="/deferment">deferment check</a> to see whether you're eligible and what deferring would cost.</p>
+      <p>They work together. You claim the grant first, then you can defer what's left of your tax if you qualify. Use the <a href="/deferment/">deferment check</a> to see whether you're eligible and what deferring would cost.</p>
       <p><a href="${GRANT_SRC}/apply" target="_blank" rel="noopener" class="btn btn-secondary">How to claim on gov.bc.ca →</a></p>
     </div>
   </section>
@@ -134,7 +134,7 @@ function grantPage() {
 ${reviewed([[GRANT_SRC + "#grant-threshold", "gov.bc.ca: Home owner grant"], [GRANT_SRC + "/apply", "gov.bc.ca: Apply for the grant"]])}`;
 
   return page({
-    path: "/home-owner-grant",
+    path: "/home-owner-grant/",
     title: "BC Home Owner Grant Calculator 2026 | PropertyTaxBC",
     ogTitle: "BC Home Owner Grant Calculator 2026",
     description: "Estimate your 2026 BC home owner grant: $570 or $770 regular, $845 or $1,045 additional, reduced above the $2,075,000 threshold. Free and runs in your browser.",
@@ -145,7 +145,7 @@ ${reviewed([[GRANT_SRC + "#grant-threshold", "gov.bc.ca: Home owner grant"], [GR
       "@context": "https://schema.org",
       "@type": "WebApplication",
       name: "BC Home Owner Grant Calculator",
-      url: SITE + "/home-owner-grant",
+      url: SITE + "/home-owner-grant/",
       applicationCategory: "FinanceApplication",
       operatingSystem: "Any",
       browserRequirements: "Requires JavaScript",
@@ -188,13 +188,13 @@ function glossaryPage() {
       <dl class="glossary">
 ${items}
       </dl>
-      <p><a href="/how-it-works" class="btn btn-secondary">How the appeal process works →</a></p>
+      <p><a href="/how-it-works/" class="btn btn-secondary">How the appeal process works →</a></p>
     </div>
   </section>
 
 ${reviewed([["https://info.bcassessment.ca/services-and-products/Pages/About-Appeals.aspx", "BC Assessment: About appeals"], ["https://www.assessmentappeal.bc.ca", "Property Assessment Appeal Board"], [GRANT_SRC, "gov.bc.ca: Home owner grant"]])}`;
   return page({
-    path: "/glossary",
+    path: "/glossary/",
     title: "BC Property Assessment Glossary: PARP, PAAB, Roll Number | PropertyTaxBC",
     ogTitle: "BC Property Assessment Glossary",
     description: "Plain language meanings of PARP, PAAB, actual value, roll number, valuation date, mill rate and other terms on your BC assessment notice.",
@@ -204,7 +204,7 @@ ${reviewed([["https://info.bcassessment.ca/services-and-products/Pages/About-App
       "@context": "https://schema.org",
       "@type": "DefinedTermSet",
       name: "BC Property Assessment Glossary",
-      url: SITE + "/glossary",
+      url: SITE + "/glossary/",
       hasDefinedTerm: TERMS.map(([t, d]) => ({ "@type": "DefinedTerm", name: t, description: d })),
     }],
   });
@@ -238,7 +238,7 @@ function editorialPage() {
     </div>
   </section>`;
   return page({
-    path: "/editorial-policy",
+    path: "/editorial-policy/",
     title: "Editorial Policy | PropertyTaxBC",
     description: "How PropertyTaxBC sources and reviews its BC property tax information, how the site is paid for, and how to report a mistake.",
     crumb: "Editorial Policy",
@@ -272,12 +272,12 @@ function contactPage() {
     </div>
   </section>`;
   return page({
-    path: "/contact",
+    path: "/contact/",
     title: "Contact | PropertyTaxBC",
     description: "Contact PropertyTaxBC with questions, corrections or feedback. Email info@propertytaxbc.ca.",
     crumb: "Contact",
     body,
-    extraLd: [{ "@context": "https://schema.org", "@type": "ContactPage", name: "Contact PropertyTaxBC", url: SITE + "/contact" }],
+    extraLd: [{ "@context": "https://schema.org", "@type": "ContactPage", name: "Contact PropertyTaxBC", url: SITE + "/contact/" }],
   });
 }
 
@@ -316,22 +316,22 @@ function cityPage(m, bySlug) {
       <p>${esc(m.local_notes)}</p>
 
       <h2>Think your ${esc(m.name)} assessment is too high?</h2>
-      <p>Compare your change with the average change printed on your notice using the <a href="/#check">free appeal check</a>, then look at recent sales of similar homes nearby. If you file, the complaint is free and goes to BC Assessment before the <a href="/deadlines">deadline</a>.</p>
+      <p>Compare your change with the average change printed on your notice using the <a href="/#check">free appeal check</a>, then look at recent sales of similar homes nearby. If you file, the complaint is free and goes to BC Assessment before the <a href="/deadlines/">deadline</a>.</p>
       <p class="affiliate" data-affiliate="kanetix_home_insurance" hidden></p>
       ${m.city_tax_page_url ? `<p><a href="${m.city_tax_page_url}" target="_blank" rel="noopener">${esc(m.name)} property tax page →</a></p>` : ""}
-      ${nearby.length ? `<h2>Nearby</h2>\n      <ul>${nearby.map((n) => `<li><a href="/property-tax/${n.slug}">${esc(n.name)}</a></li>`).join("")}</ul>` : ""}
-      <p><a href="/property-tax">All cities →</a></p>
+      ${nearby.length ? `<h2>Nearby</h2>\n      <ul>${nearby.map((n) => `<li><a href="/property-tax/${n.slug}/">${esc(n.name)}</a></li>`).join("")}</ul>` : ""}
+      <p><a href="/property-tax/">All cities →</a></p>
     </div>
   </section>
 
 ${reviewed([[munis._sources.schedules_page, "gov.bc.ca: Municipal tax rates and tax burden"], [GRANT_SRC, "gov.bc.ca: Home owner grant"]].concat(m.city_tax_page_url ? [[m.city_tax_page_url, m.name + " property tax"]] : []))}`;
   return page({
-    path: "/property-tax/" + m.slug,
+    path: "/property-tax/" + m.slug + "/",
     title: `${m.name} Property Tax Rate ${m.data_year} and Assessment Appeal Guide | PropertyTaxBC`,
     ogTitle: `${m.name} property tax and assessment guide`,
     description: `${m.name} total residential tax rate is $${m.residential_rate_total.toFixed(2)} per $1,000 (${m.data_year}). See a typical home's tax bill, the home owner grant and how to appeal your assessment.`,
     crumb: m.name,
-    parents: [{ name: "Property tax by city", path: "/property-tax" }],
+    parents: [{ name: "Property tax by city", path: "/property-tax/" }],
     body,
     scripts: ["/js/affiliates.js"],
   });
@@ -340,7 +340,7 @@ ${reviewed([[munis._sources.schedules_page, "gov.bc.ca: Municipal tax rates and 
 function cityIndex(list) {
   const rows = list
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((m) => `          <tr><th scope="row"><a href="/property-tax/${m.slug}">${esc(m.name)}</a></th><td>$${m.residential_rate_total.toFixed(4)}</td><td>${money(m.rep_house_taxes_total)}</td><td>${esc(m.regional_district)}</td></tr>`)
+    .map((m) => `          <tr><th scope="row"><a href="/property-tax/${m.slug}/">${esc(m.name)}</a></th><td>$${m.residential_rate_total.toFixed(4)}</td><td>${money(m.rep_house_taxes_total)}</td><td>${esc(m.regional_district)}</td></tr>`)
     .join("\n");
   const body = `  <section class="hero">
     <div class="container">
@@ -362,7 +362,7 @@ ${rows}
 
 ${reviewed([[munis._sources.schedules_page, "gov.bc.ca: Municipal tax rates and tax burden"]])}`;
   return page({
-    path: "/property-tax",
+    path: "/property-tax/",
     title: "BC Property Tax Rates by City | PropertyTaxBC",
     ogTitle: "BC property tax rates by city",
     description: "Compare BC residential property tax rates and a typical home's tax bill by municipality, with links to each city's assessment and tax guide.",
@@ -375,8 +375,8 @@ ${reviewed([[munis._sources.schedules_page, "gov.bc.ca: Municipal tax rates and 
 function ics() {
   const d = rules.deadlines;
   const ev = [
-    ["parp-2027", d.parp_complaint.value, "BC assessment complaint (PARP) deadline", "Last day to file a free complaint with BC Assessment. Confirm at bcassessment.ca. https://propertytaxbc.ca/deadlines"],
-    ["paab-2027", d.paab_appeal.value, "PAAB appeal deadline", "Last day to appeal a PARP decision to the Property Assessment Appeal Board. Firm, no extensions. https://propertytaxbc.ca/deadlines"],
+    ["parp-2027", d.parp_complaint.value, "BC assessment complaint (PARP) deadline", "Last day to file a free complaint with BC Assessment. Confirm at bcassessment.ca. https://propertytaxbc.ca/deadlines/"],
+    ["paab-2027", d.paab_appeal.value, "PAAB appeal deadline", "Last day to appeal a PARP decision to the Property Assessment Appeal Board. Firm, no extensions. https://propertytaxbc.ca/deadlines/"],
   ];
   const stamp = "20261019T000000Z";
   const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//PropertyTaxBC//Deadlines//EN", "CALSCALE:GREGORIAN", "X-WR-CALNAME:BC property tax deadlines 2027"];
@@ -429,19 +429,19 @@ else if (fs.existsSync(path.join(ROOT, cityIndexFile))) fs.rmSync(path.join(ROOT
 
 const urls = [
   ["/", "index.html", "1.0"],
-  ["/how-it-works", "how-it-works/index.html", "0.9"],
-  ["/deadlines", "deadlines/index.html", "0.9"],
-  ["/deferment", "deferment/index.html", "0.8"],
-  ["/home-owner-grant", "home-owner-grant/index.html", "0.8"],
-  ["/evidence", "evidence/index.html", "0.8"],
-  ["/faq", "faq/index.html", "0.8"],
-  ["/glossary", "glossary/index.html", "0.6"],
+  ["/how-it-works/", "how-it-works/index.html", "0.9"],
+  ["/deadlines/", "deadlines/index.html", "0.9"],
+  ["/deferment/", "deferment/index.html", "0.8"],
+  ["/home-owner-grant/", "home-owner-grant/index.html", "0.8"],
+  ["/evidence/", "evidence/index.html", "0.8"],
+  ["/faq/", "faq/index.html", "0.8"],
+  ["/glossary/", "glossary/index.html", "0.6"],
 ];
 if (ready.length) {
-  urls.push(["/property-tax", cityIndexFile, "0.7"]);
-  ready.forEach((m) => urls.push([`/property-tax/${m.slug}`, `property-tax/${m.slug}/index.html`, "0.6"]));
+  urls.push(["/property-tax/", cityIndexFile, "0.7"]);
+  ready.forEach((m) => urls.push([`/property-tax/${m.slug}/`, `property-tax/${m.slug}/index.html`, "0.6"]));
 }
-urls.push(["/about", "about/index.html", "0.5"], ["/contact", "contact/index.html", "0.3"], ["/editorial-policy", "editorial-policy/index.html", "0.3"], ["/privacy", "privacy/index.html", "0.2"], ["/terms", "terms/index.html", "0.2"]);
+urls.push(["/about/", "about/index.html", "0.5"], ["/contact/", "contact/index.html", "0.3"], ["/editorial-policy/", "editorial-policy/index.html", "0.3"], ["/privacy/", "privacy/index.html", "0.2"], ["/terms/", "terms/index.html", "0.2"]);
 write("sitemap.xml", sitemap(urls));
 
 console.log(`Built grant, glossary, editorial policy, calendar. City pages: ${ready.length} of ${munis.municipalities.length} (others skipped until their data is filled in). Sitemap: ${urls.length} URLs.`);

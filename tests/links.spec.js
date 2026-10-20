@@ -63,3 +63,19 @@ test('every page has exactly one canonical link and it is absolute', () => {
     expect(canonicals[0][1], path.relative(ROOT, file)).toMatch(/^https:\/\//);
   }
 });
+
+test('internal page links and canonicals end with a slash so they do not redirect', () => {
+  // Cloudflare Pages answers /about with a 308 to /about/. Search Console reports
+  // every no-slash URL we link to or declare canonical as "Page with redirect".
+  const files = walkHtmlFiles(ROOT).filter((f) => !/[\/](test-results|playwright-report)[\/]/.test(f));
+  for (const file of files) {
+    const html = fs.readFileSync(file, 'utf8');
+    for (const m of html.matchAll(/(?:href|content)="(?:https:\/\/propertytaxbc\.ca)?(\/[^"#?]*)(?:[#?][^"]*)?"/g)) {
+      const p = m[1];
+      if (p.startsWith('//') || p === '/' || p.endsWith('/') || /\.[a-z0-9]+$/i.test(p)) continue;
+      throw new Error(`${path.relative(ROOT, file)} links to ${p} without a trailing slash`);
+    }
+  }
+  const xml = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
+  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) expect(m[1]).toMatch(/\/$/);
+});

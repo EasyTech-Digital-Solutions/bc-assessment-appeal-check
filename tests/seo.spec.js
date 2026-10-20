@@ -6,7 +6,7 @@ const { INDEXABLE, blockThirdParty } = require('./helpers');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://propertytaxbc.ca';
 const fileFor = (p) => (p === '/' ? 'index.html' : p.replace(/^\//, '').replace(/\/$/, '') + '/index.html');
-const urlFor = (p) => (p === '/' ? SITE + '/' : SITE + p.replace(/\/$/, ''));
+const urlFor = (p) => SITE + p;
 
 for (const p of INDEXABLE) {
   test.describe(`seo: ${p}`, () => {

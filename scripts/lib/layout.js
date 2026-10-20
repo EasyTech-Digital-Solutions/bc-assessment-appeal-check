@@ -13,12 +13,12 @@ function esc(s) {
 
 const NAV = [
   ["/", "Free Check", true],
-  ["/how-it-works", "How It Works"],
-  ["/deadlines", "Deadlines"],
-  ["/evidence", "Evidence"],
-  ["/faq", "FAQ"],
-  ["/deferment", "Deferment Check", true],
-  ["/about", "About"],
+  ["/how-it-works/", "How It Works"],
+  ["/deadlines/", "Deadlines"],
+  ["/evidence/", "Evidence"],
+  ["/faq/", "FAQ"],
+  ["/deferment/", "Deferment Check", true],
+  ["/about/", "About"],
 ];
 
 function nav(current) {
@@ -45,29 +45,29 @@ const FOOTER = `<footer class="site-footer">
       <div>
         <h4>Guide</h4>
         <ul>
-          <li><a href="/how-it-works">How It Works</a></li>
-          <li><a href="/deadlines">Deadlines</a></li>
-          <li><a href="/evidence">Evidence</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/glossary">Glossary</a></li>
+          <li><a href="/how-it-works/">How It Works</a></li>
+          <li><a href="/deadlines/">Deadlines</a></li>
+          <li><a href="/evidence/">Evidence</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/glossary/">Glossary</a></li>
         </ul>
       </div>
       <div>
         <h4>Tools</h4>
         <ul>
           <li><a href="/">Appeal Check</a></li>
-          <li><a href="/deferment">Deferment Check</a></li>
-          <li><a href="/home-owner-grant">Home Owner Grant</a></li>
+          <li><a href="/deferment/">Deferment Check</a></li>
+          <li><a href="/home-owner-grant/">Home Owner Grant</a></li>
         </ul>
       </div>
       <div>
         <h4>Site</h4>
         <ul>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/editorial-policy">Editorial Policy</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Use</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/editorial-policy/">Editorial Policy</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/terms/">Terms of Use</a></li>
         </ul>
       </div>
     </div>
@@ -80,7 +80,7 @@ const FOOTER = `<footer class="site-footer">
 
 /**
  * page({ path, title, ogTitle, description, crumb, body, scripts, extraLd, ads })
- * path: "/home-owner-grant" (no trailing slash). crumb: breadcrumb label.
+ * path: "/home-owner-grant/" (no trailing slash). crumb: breadcrumb label.
  */
 function page(o) {
   const url = SITE + o.path;
