@@ -1,0 +1,26 @@
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*credentials*
+*secret*
+
+# Dependency and build output
+node_modules/
+.wrangler/
+test-results/
+playwright-report/
+
+# Logs and caches
+*.log
+logs/
+.cache/
+
+# Large/binary data
+*.sqlite
+*.db
+*.zip
+*.tar
+*.tar.gz
