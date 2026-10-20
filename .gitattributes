@@ -1,0 +1,7 @@
+# Keep text files LF in the working tree on every OS. The build script writes LF,
+# and the "generated pages are up to date" test compares bytes.
+* text=auto eol=lf
+# Calendar files must keep CRLF (RFC 5545), so git leaves them byte for byte.
+*.ics -text
+*.png binary
+*.ico binary

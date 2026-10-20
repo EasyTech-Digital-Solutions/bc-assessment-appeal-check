@@ -1,0 +1,436 @@
+{
+  "_note": "One entry per municipality. A page is only built when every field in _required is filled with real data from the named source. Leave a field null until it is checked. Do not copy BC Assessment property data here.",
+  "_required": [
+    "residential_rate_total",
+    "rep_house_value",
+    "rep_house_taxes_total",
+    "data_year",
+    "local_notes"
+  ],
+  "_sources": {
+    "residential_rate_total": "gov.bc.ca Schedule 702, total residential rate per $1,000",
+    "rep_house_value": "gov.bc.ca Schedule 704, house value",
+    "rep_house_taxes_total": "gov.bc.ca Schedule 704, total taxes and charges",
+    "schedules_page": "https://www2.gov.bc.ca/gov/content/governments/local-governments/facts-framework/statistics/tax-rates-tax-burden"
+  },
+  "municipalities": [
+    {
+      "slug": "vancouver",
+      "name": "Vancouver",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "burnaby",
+        "richmond",
+        "north-vancouver-city"
+      ]
+    },
+    {
+      "slug": "surrey",
+      "name": "Surrey",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "delta",
+        "langley-city",
+        "langley-township"
+      ]
+    },
+    {
+      "slug": "burnaby",
+      "name": "Burnaby",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "vancouver",
+        "new-westminster",
+        "coquitlam"
+      ]
+    },
+    {
+      "slug": "richmond",
+      "name": "Richmond",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "vancouver",
+        "delta",
+        "burnaby"
+      ]
+    },
+    {
+      "slug": "coquitlam",
+      "name": "Coquitlam",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "port-coquitlam",
+        "burnaby",
+        "new-westminster"
+      ]
+    },
+    {
+      "slug": "langley-city",
+      "name": "Langley (City)",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "langley-township",
+        "surrey",
+        "abbotsford"
+      ]
+    },
+    {
+      "slug": "langley-township",
+      "name": "Langley (Township)",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "langley-city",
+        "surrey",
+        "abbotsford"
+      ]
+    },
+    {
+      "slug": "delta",
+      "name": "Delta",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "surrey",
+        "richmond",
+        "langley-township"
+      ]
+    },
+    {
+      "slug": "north-vancouver-city",
+      "name": "North Vancouver (City)",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "north-vancouver-district",
+        "west-vancouver",
+        "vancouver"
+      ]
+    },
+    {
+      "slug": "north-vancouver-district",
+      "name": "North Vancouver (District)",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "north-vancouver-city",
+        "west-vancouver",
+        "vancouver"
+      ]
+    },
+    {
+      "slug": "west-vancouver",
+      "name": "West Vancouver",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "north-vancouver-district",
+        "north-vancouver-city",
+        "vancouver"
+      ]
+    },
+    {
+      "slug": "maple-ridge",
+      "name": "Maple Ridge",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "port-coquitlam",
+        "mission",
+        "langley-township"
+      ]
+    },
+    {
+      "slug": "new-westminster",
+      "name": "New Westminster",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "burnaby",
+        "coquitlam",
+        "surrey"
+      ]
+    },
+    {
+      "slug": "port-coquitlam",
+      "name": "Port Coquitlam",
+      "regional_district": "Metro Vancouver",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "coquitlam",
+        "maple-ridge",
+        "new-westminster"
+      ]
+    },
+    {
+      "slug": "abbotsford",
+      "name": "Abbotsford",
+      "regional_district": "Fraser Valley Regional District",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "mission",
+        "chilliwack",
+        "langley-township"
+      ]
+    },
+    {
+      "slug": "chilliwack",
+      "name": "Chilliwack",
+      "regional_district": "Fraser Valley Regional District",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "abbotsford",
+        "mission"
+      ]
+    },
+    {
+      "slug": "mission",
+      "name": "Mission",
+      "regional_district": "Fraser Valley Regional District",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "abbotsford",
+        "maple-ridge",
+        "chilliwack"
+      ]
+    },
+    {
+      "slug": "victoria",
+      "name": "Victoria",
+      "regional_district": "Capital Regional District",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "saanich",
+        "nanaimo"
+      ]
+    },
+    {
+      "slug": "saanich",
+      "name": "Saanich",
+      "regional_district": "Capital Regional District",
+      "grant_zone": "metro",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "victoria",
+        "nanaimo"
+      ]
+    },
+    {
+      "slug": "nanaimo",
+      "name": "Nanaimo",
+      "regional_district": "Regional District of Nanaimo",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "saanich",
+        "victoria"
+      ]
+    },
+    {
+      "slug": "kelowna",
+      "name": "Kelowna",
+      "regional_district": "Regional District of Central Okanagan",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "vernon",
+        "penticton",
+        "kamloops"
+      ]
+    },
+    {
+      "slug": "kamloops",
+      "name": "Kamloops",
+      "regional_district": "Thompson-Nicola Regional District",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "kelowna",
+        "vernon",
+        "prince-george"
+      ]
+    },
+    {
+      "slug": "prince-george",
+      "name": "Prince George",
+      "regional_district": "Regional District of Fraser-Fort George",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "kamloops"
+      ]
+    },
+    {
+      "slug": "vernon",
+      "name": "Vernon",
+      "regional_district": "Regional District of North Okanagan",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "kelowna",
+        "kamloops",
+        "penticton"
+      ]
+    },
+    {
+      "slug": "penticton",
+      "name": "Penticton",
+      "regional_district": "Regional District of Okanagan-Similkameen",
+      "grant_zone": "other",
+      "residential_rate_total": null,
+      "rep_house_value": null,
+      "rep_house_taxes_total": null,
+      "data_year": null,
+      "city_tax_page_url": null,
+      "local_notes": null,
+      "nearby": [
+        "kelowna",
+        "vernon"
+      ]
+    }
+  ]
+}

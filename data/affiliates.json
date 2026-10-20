@@ -1,0 +1,69 @@
+{
+  "_note": "Paste your tracking link into each url after approval. Leave url empty until then; pages must hide any link with an empty url.",
+  "links": {
+    "ratehub_heloc": {
+      "program": "Ratehub",
+      "label": "Compare home equity rates",
+      "url": "",
+      "pages": ["deferment"],
+      "signup": "https://www.ratehub.ca/affiliate-program"
+    },
+    "ratehub_mortgage_renewal": {
+      "program": "Ratehub",
+      "label": "Compare mortgage renewal rates",
+      "url": "",
+      "pages": ["home-owner-grant"],
+      "signup": "https://www.ratehub.ca/affiliate-program"
+    },
+    "ratehub_mortgage_widget": {
+      "program": "Ratehub",
+      "label": "Mortgage rates widget",
+      "url": "",
+      "embed_code": "",
+      "pages": ["property-transfer-tax"],
+      "signup": "https://www.ratehub.ca/affiliate-program"
+    },
+    "ratesca_home_insurance": {
+      "program": "Rates.ca",
+      "label": "Get a home insurance quote",
+      "url": "",
+      "pages": ["property-transfer-tax"],
+      "signup": "https://rates.ca/sign-up"
+    },
+    "kanetix_home_insurance": {
+      "program": "Kanetix (FlexOffers)",
+      "label": "Compare home insurance quotes",
+      "url": "",
+      "pages": ["city"],
+      "signup": "https://www.flexoffers.com/affiliate-programs/kanetix-canada-affiliate-program/"
+    },
+    "youset_condo_insurance": {
+      "program": "YouSet (FlexOffers)",
+      "label": "Compare condo insurance",
+      "url": "",
+      "pages": ["strata-guide"],
+      "signup": "https://www.flexoffers.com/affiliate-programs/youset-affiliate-program/"
+    },
+    "policyadvisor_mortgage_protection": {
+      "program": "PolicyAdvisor (Fintel Connect)",
+      "label": "Compare mortgage protection insurance",
+      "url": "",
+      "pages": ["property-transfer-tax"],
+      "signup": "https://www.fintelconnect.com/brands/directory/policyadvisor-affiliate-program/"
+    },
+    "willful_will": {
+      "program": "Willful",
+      "label": "Make a will online",
+      "url": "",
+      "pages": ["deferment", "home-owner-grant"],
+      "signup": "https://www.willful.co/affiliate-program"
+    },
+    "loanscanada_home_equity": {
+      "program": "Loans Canada",
+      "label": "Compare home equity options",
+      "url": "",
+      "pages": ["deferment"],
+      "signup": "https://loanscanada.ca/about/partnerships/"
+    }
+  }
+}

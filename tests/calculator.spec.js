@@ -76,13 +76,13 @@ test('invalid input (previous value zero) shows a validation message, not a cras
   expect(errors).toEqual([]);
 });
 
-test('property address is optional and does not affect the verdict', async ({ page }) => {
-  const withoutAddress = await runCheck(page, 950000, 820000, 8);
-  await page.fill('#propertyAddress', '123 Test St, Vancouver');
+test('municipality is optional and does not affect the verdict', async ({ page }) => {
+  const without = await runCheck(page, 950000, 820000, 8);
+  await page.fill('#propertyMunicipality', 'Burnaby');
   await page.click('#check-form button[type=submit]');
   await page.waitForSelector('#check-result.is-visible');
-  const withAddress = await page.locator('#check-result').innerText();
-  expect(withAddress).toBe(withoutAddress);
+  const withMuni = await page.locator('#check-result h3').innerText();
+  expect(without).toContain(withMuni);
 });
 
 test('municipality dropdown is searchable and has BC-wide coverage', async ({ page }) => {
@@ -92,31 +92,21 @@ test('municipality dropdown is searchable and has BC-wide coverage', async ({ pa
   await expect(page.locator('#propertyMunicipality')).toHaveAttribute('list', 'bc-municipalities');
 });
 
-test('street address and municipality combine into one address for the lead form', async ({ page }) => {
+test('result shows next steps with official links', async ({ page }) => {
   await runCheck(page, 950000, 820000, 8);
-  await page.fill('#propertyAddress', '123 Main St');
-  await page.fill('#propertyMunicipality', 'Vancouver');
-  await page.click('#check-form button[type=submit]');
-  await expect(page.locator('#address')).toHaveValue('123 Main St, Vancouver');
+  const steps = page.locator('#check-result .next-steps');
+  await expect(steps).toBeVisible();
+  await expect(steps.locator('a[href="/evidence/"]')).toHaveCount(1);
+  await expect(steps.locator('a[href*="bcassessment.ca"]')).toHaveCount(2);
+  await expect(steps.locator('a[href*="assessmentappeal.bc.ca"]')).toHaveCount(1);
 });
 
-test('municipality alone (no street address) still prefills the lead form', async ({ page }) => {
-  await runCheck(page, 950000, 820000, 8);
-  await page.fill('#propertyMunicipality', 'Kelowna');
-  await page.click('#check-form button[type=submit]');
-  await expect(page.locator('#address')).toHaveValue('Kelowna');
-});
-
-test('property address prefills into the lead form without overwriting a manual entry', async ({ page }) => {
-  await runCheck(page, 950000, 820000, 8);
-  await page.fill('#propertyAddress', '123 Test St, Vancouver');
-  await page.click('#check-form button[type=submit]');
-  await expect(page.locator('#address')).toHaveValue('123 Test St, Vancouver');
-
-  // A second, different calculator submission must not clobber an address
-  // the homeowner has since typed directly into the lead form themselves.
-  await page.fill('#address', '456 Manual Entry Ave');
-  await page.fill('#propertyAddress', '999 Should Not Overwrite Rd');
-  await page.click('#check-form button[type=submit]');
-  await expect(page.locator('#address')).toHaveValue('456 Manual Entry Ave');
+test('no lead form, street address field or referral wording on the home page', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#lead-form')).toHaveCount(0);
+  await expect(page.locator('#lead-section')).toHaveCount(0);
+  await expect(page.locator('#propertyAddress')).toHaveCount(0);
+  const body = (await page.locator('body').innerText()).toLowerCase();
+  expect(body).not.toContain('referral');
+  expect(body).not.toContain('licensed');
 });

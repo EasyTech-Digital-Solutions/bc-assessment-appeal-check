@@ -1,29 +1,34 @@
 # PropertyTaxBC
 
-Two free tools for BC homeowners on one site:
+Free tools and plain language guides for BC homeowners, paid for by ads and a
+few labelled affiliate links. No forms, no accounts, nothing typed into a tool
+leaves the browser.
 
-1. **Assessment Appeal Check** — whether a BC Assessment notice looks
-   appeal-worthy, how the PARP/PAAB appeal process works, and — if it
-   looks worth pursuing — a referral to a licensed BC property tax
-   professional. Referral/lead-gen model: free for homeowners, revenue
-   comes from participating professionals.
-2. **Property Tax Deferment Checker** (`/deferment`) — pure self-serve
-   education and an eligibility decision tree for BC's property tax
-   deferment program. No referral component, no lead capture, nothing
-   collected — it links straight to the government's own application
-   portal at the end.
+1. **Assessment Appeal Check** (`/`): does a BC Assessment notice look worth
+   a closer look, plus next steps for filing a free complaint yourself.
+2. **Property Tax Deferment Check** (`/deferment`): eligibility check and a
+   cost calculator comparing the 2026 rules, the old rules and a line of credit.
+3. **Home Owner Grant Calculator** (`/home-owner-grant`): 2026 grant estimate
+   with the threshold reduction and the additional grant.
 
-See the project brief for full rationale, legal boundaries, and content
-sourcing.
+Generated pages (grant, glossary, contact, editorial policy, city pages,
+sitemap, deadline calendar) come from `node scripts/build_pages.js`. Edit the
+script or the files in `data/`, then run it. City pages are only built for
+cities whose data in `data/municipalities.json` is complete.
+
+Yearly numbers live in `data/rules.json` and `js/deadlines.js`. Affiliate
+links live in `data/affiliates.json` and stay hidden until a URL is filled in.
+Repo only files are hidden from the public site by `_routes.json` and
+`functions/_middleware.js`. Internal notes go in `docs/`, which is gitignored.
 
 ## What's here
 
-Plain static HTML/CSS/JS (no framework, no build step) plus two Cloudflare
-Pages Functions for lead capture.
+Plain static HTML/CSS/JS (no framework). One small Cloudflare Pages
+Function hides repo only files; a Node script builds the generated pages.
 
 ```
 index.html               Landing page: hero, free check calculator, PARP
-                          summary, lead capture form, mini-FAQ
+                          summary, next steps, mini-FAQ
 how-it-works/index.html  /how-it-works — main PARP/PAAB guide (primary SEO page)
 deadlines/index.html     /deadlines — current-cycle deadlines (update yearly)
 evidence/index.html      /evidence — comparables, bracketing, what helps
@@ -46,15 +51,20 @@ css/style.css
 js/calculator.js         Free-check scoring logic (see "Calculator logic" below)
 js/deadlines.js          Deadline countdown + table, shared by index and /deadlines
 js/deferment.js          Deferment eligibility decision tree (see "Deferment checker" below)
-js/lead-form.js          Lead form validation + submission to /api/lead
-functions/api/lead.js    POST — validates + writes a lead to KV, rate-limited (see "Security")
-functions/api/leads.js   GET — token-protected endpoint to view captured leads
+js/deferment-cost.js     Deferment cost estimate (2026 vs old rules vs line of credit)
+js/grant.js              Home owner grant estimate (2026 rules)
+js/affiliates.js         Fills affiliate slots from data/affiliates.json
+js/analytics-events.js   Site wide GA4 events (see the comment at the top for the full list)
+functions/_middleware.js Returns 404 for repo only paths listed in _routes.json
+scripts/build_pages.js   Builds generated pages, sitemap.xml and the .ics calendar
+scripts/check_affiliate_links.js  Weekly affiliate link check (.github/workflows/check-links.yml)
+data/                    rules.json, affiliates.json, municipalities.json
 wrangler.toml
 _headers                 Security headers incl. CSP for Cloudflare Pages (see "Security")
 package.json / package-lock.json   Dev-only — test tooling, not a build step for the site itself
 playwright.config.js     Test runner config (see "Testing")
 tests/                   Playwright test suite (see "Testing")
-.github/workflows/test.yml   CI — runs the test suite on push/PR to main
+.github/workflows/test.yml   CI, runs the test suite on push/PR to main
 ```
 
 Each content page lives in its own directory as `index.html` (e.g.
@@ -184,9 +194,8 @@ in place:
 - **Organization JSON-LD** on the homepage only (name, url, logo,
   description) — no `sameAs` or search-action markup, since there are no
   social profiles or on-site search to point at honestly.
-- **`sitemap.xml` now carries `<lastmod>`** dates (currently 2026-08-22
-  on every entry) — update these when a page's content actually changes,
-  not on every deploy, so the freshness signal stays meaningful.
+- **`sitemap.xml` is generated** by `scripts/build_pages.js`, with `<lastmod>`
+  taken from each page's last git commit.
 
 Not done here, worth doing before launch: verifying og-image.png renders
 correctly in an actual link-preview tool (Facebook's Sharing Debugger,
@@ -209,8 +218,7 @@ no neighbourhood % → show yourChange alone, prompt for the area average
 ```
 
 Never surfaces a dollar figure, never says "you should appeal." All
-calculation happens client-side; nothing is sent anywhere until the
-homeowner explicitly submits the separate lead form.
+calculation happens client-side; nothing typed is ever sent anywhere.
 
 ## Deadlines (js/deadlines.js)
 
@@ -225,8 +233,8 @@ updating.
 
 ## Deferment checker (js/deferment.js, /deferment)
 
-Tool 2, per Part 11 of the brief. A client-side-only decision tree, no
-lead form, no data collected. Facts were verified directly against
+Tool 2, per Part 11 of the brief. A client-side-only decision tree plus a cost
+calculator (js/deferment-cost.js), no data collected. Facts were verified directly against
 gov.bc.ca on 2026-08-20 (not taken from the brief as-written, which had
 gone stale — see below):
 
@@ -257,83 +265,22 @@ neutrally, and ends eligible results with a direct link to the official
 gov.bc.ca application portal. The Privacy Policy's "What we collect"
 section was updated to state plainly that this tool collects nothing.
 
-## Lead capture setup (Cloudflare Pages + Workers KV)
-
-1. Create the KV namespaces:
-   ```
-   wrangler kv namespace create LEADS
-   wrangler kv namespace create LEADS --preview
-   ```
-2. Paste the resulting IDs into `wrangler.toml` (`id` / `preview_id`).
-3. In the Cloudflare Pages project settings (or via `wrangler.toml` if
-   deploying through Wrangler), bind the `LEADS` KV namespace to the Pages
-   project.
-4. Set an admin token as a Pages secret (used to protect `/api/leads`):
-   ```
-   wrangler pages secret put ADMIN_TOKEN
-   ```
-5. To view captured leads, request `/api/leads` with header
-   `Authorization: Bearer <the token you set>`. This endpoint is
-   intentionally not linked from anywhere in the site nav.
-
-For v1, every submission just lands in KV / is viewable via `/api/leads` —
-there's no partner routing yet, per the brief ("route every submission to
-a single inbox... don't build anything more elaborate until a referral
-relationship actually exists"). If you want email notifications on new
-leads in addition to KV storage, that's the natural next addition to
-`functions/api/lead.js` once you've picked a transactional email provider.
-
-### Testing Functions locally
-
-Static files alone (`python -m http.server`, etc.) can't run
-`functions/api/*.js` — those need Cloudflare's actual runtime. To test the
-lead form and admin endpoint end-to-end, including real KV behavior:
-
-```
-npx wrangler pages dev . --kv=LEADS --binding ADMIN_TOKEN=some-local-test-token
-```
-
-This spins up a local server (default `http://localhost:8788`) with a
-disk-persisted local KV store standing in for the real one — no
-Cloudflare account or login needed for this. One gotcha: `CF-Connecting-IP`
-(what the rate limiter in `functions/api/lead.js` keys on) is a header
-Cloudflare's real edge network injects on every request — `wrangler pages
-dev` does not simulate it, so the rate limiter's `if (!ip) return false`
-fallback means it won't actually trigger locally unless you pass the
-header yourself: `curl -H "CF-Connecting-IP: 203.0.113.1" ...`. Confirmed
-working end-to-end this way during development (5 requests pass, the 6th
-gets `429` with a `Retry-After` header) — it'll behave the same in
-production without any extra step, since Cloudflare always sets that
-header there. Local KV state persists across `wrangler dev` runs in
-`.wrangler/state` (gitignored) — delete that directory to reset it.
-
 ## Security
 
-- **Rate limiting** on `POST /api/lead`: a fixed-window counter per client
-  IP (`ratelimit:<ip>` in the `LEADS` KV namespace, 5 submissions/hour,
-  auto-expires via KV's `expirationTtl`). Not a precise sliding window —
-  that would need Durable Objects, more infrastructure than this form's
-  expected traffic justifies. See "Testing Functions locally" above for
-  how this was actually verified, not just written and assumed correct.
-- **Content-Security-Policy** in `_headers`: `script-src 'self'` (no
-  `unsafe-inline`, no `unsafe-eval` — there's no inline executable JS
-  anywhere, only external `/js/*.js` files and inert `application/ld+json`
-  blocks, which CSP's script-src doesn't govern). `style-src` does allow
-  `'unsafe-inline'`, a deliberate tradeoff: the site uses inline `style=""`
-  attributes pervasively for one-off layout, and inline CSS is a much
-  smaller XSS surface than inline JS would be. Verified against a real
-  enforced CSP header in a real browser (not just reasoned about) across
-  all 10 pages plus the calculator's interactive flow — zero violations.
-  Also sets HSTS, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
-  and a restrictive `Permissions-Policy`.
-- **Input validation** happens server-side in `functions/api/lead.js`
-  regardless of what the client sends — required fields, email shape,
-  length caps, explicit `consent === true` — never trusting the form's
-  own client-side checks.
-- **Honeypot** (`company_website` field, off-screen via `position:
-  absolute; left:-9999px`, `tabindex="-1"`) catches bots that fill every
-  input without rendering CSS; tripping it returns a normal-looking
-  success without storing anything.
+- **Content-Security-Policy** in `_headers`: `script-src` allows `'self'`
+  plus Google Analytics, AdSense and Google's consent message domains, and no
+  `unsafe-inline` or `unsafe-eval`. There is no inline executable JS, only
+  external `/js/*.js` files and inert `application/ld+json` blocks.
+  `frame-src` allows only AdSense frames. `style-src` allows `'unsafe-inline'`
+  for the inline `style=""` attributes used for one off layout. If AdSense
+  starts serving from a new domain, the browser console shows a CSP error;
+  add that domain here. Also sets HSTS, `X-Frame-Options: DENY`,
+  `X-Content-Type-Options: nosniff`, and a restrictive `Permissions-Policy`.
+- **Repo only files** (README, tests, scripts, config, `docs/`) are served as
+  404 with `noindex` by `functions/_middleware.js`. `_routes.json` limits the
+  function to those paths, so normal pages never invoke it.
+- **No personal data**: there are no forms. Tests check that values typed
+  into the calculators never appear in any outbound request.
 
 ## Testing
 
@@ -386,35 +333,16 @@ these steps can be run from here, but here's the exact sequence:
    Create → Pages → Connect to Git → pick this repo. Build settings:
    leave the build command **empty** and the output directory as `/`
    (repo root) — there's no build step.
-3. **Create the KV namespace** (needs `wrangler login` first if you
-   haven't authenticated the CLI before):
-   ```
-   npx wrangler login
-   npx wrangler kv namespace create LEADS
-   npx wrangler kv namespace create LEADS --preview
-   ```
-   Paste the two resulting ids into `wrangler.toml` (`id` and
-   `preview_id`), replacing the `REPLACE_WITH_...` placeholders.
-4. **Bind the KV namespace to the Pages project** in the dashboard:
-   Pages project → Settings → Functions → KV namespace bindings → add
-   variable name `LEADS` → select the namespace you just created. (This
-   is separate from `wrangler.toml`, which only matters if you deploy via
-   `wrangler pages deploy` directly instead of the Git integration.)
-5. **Set the admin token secret**:
-   ```
-   npx wrangler pages secret put ADMIN_TOKEN --project-name <your-pages-project-name>
-   ```
-   Pick a long random value — this is what protects `/api/leads`.
-6. **Point the domain**: in the Pages project → Custom domains → add
-   `propertytaxbc.ca` (or whatever domain you actually register/use).
-   Cloudflare handles the DNS/SSL if the domain's nameservers are already
-   on Cloudflare; otherwise it'll walk you through adding the domain to
-   your Cloudflare account first.
-7. **Verify the live site**: check `/api/leads` with your admin token
-   returns `{"count":0,...}` (proves the KV binding is live), submit the
-   real lead form once and confirm it shows up there, and re-run through
-   `sitemap.xml`/`robots.txt` at the real domain since both already point
-   at `propertytaxbc.ca` absolute URLs.
+3. **Point the domain**: in the Pages project → Custom domains → add
+   `propertytaxbc.ca`.
+4. **After merging the ads and affiliate changes**, remove the old `LEADS`
+   KV binding and the `ADMIN_TOKEN` secret in the Pages project settings
+   (export and delete any stored leads first), and turn on the AdSense
+   consent message for the EEA, UK and Switzerland in AdSense → Privacy and
+   messaging.
+5. **Verify the live site**: `/README.md` and `/tests/` return 404, the
+   browser console shows no CSP errors on a page with ads, and
+   `sitemap.xml` lists every page.
 
 After that, every push to `main` auto-deploys (Cloudflare Pages' default
 Git integration behavior) — the CI workflow above runs the test suite
@@ -422,16 +350,13 @@ independently of that deploy, it doesn't gate it.
 
 ## Analytics
 
-Cloudflare Web Analytics only (cookieless, free, no cookie banner
-required) — add the site in the Cloudflare dashboard and paste the
-provided snippet before `</body>` on each page once you have a token. Do
-not add Google Analytics or any cookie-based analytics without revisiting
-the Privacy Policy's analytics section.
+Google Analytics 4 (`G-MWPM1ESFFH`) via `js/gtag-init.js`, with custom events
+from the tool scripts and `js/analytics-events.js`. The full event list and the
+suggested GA4 key events are in the comment at the top of
+`js/analytics-events.js`. Events never include values typed into a tool.
 
 ## Explicitly out of scope for v1
 
 Document generation of any kind, homeowner-facing payments, other
 provinces, hardcoded partner integrations, individualized legal/tax
-advice in the copy, and a lead form or referral component on the
-deferment checker specifically. See the full project brief for the
-reasoning.
+advice in the copy, and any lead form or referral component.

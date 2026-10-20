@@ -10,6 +10,7 @@
     "serve": "http-server . -p 8123 -s -c-1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.62.1",
     "http-server": "^14.1.1",
     "wrangler": "^4.125.0"
