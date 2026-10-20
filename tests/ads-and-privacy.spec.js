@@ -60,7 +60,7 @@ test('footer links to contact, privacy and terms on every content page', async (
   for (const p of PAGES.filter((x) => !['/404.html', '/privacy/', '/terms/'].includes(x))) {
     await page.goto(p);
     const footer = page.locator('footer');
-    for (const href of ['/contact', '/privacy', '/terms', '/about']) {
+    for (const href of ['/contact/', '/privacy/', '/terms/', '/about/']) {
       await expect(footer.locator(`a[href="${href}"]`), `${p} ${href}`).toHaveCount(1);
     }
   }

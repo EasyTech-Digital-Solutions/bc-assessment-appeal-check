@@ -96,7 +96,7 @@ test('result shows next steps with official links', async ({ page }) => {
   await runCheck(page, 950000, 820000, 8);
   const steps = page.locator('#check-result .next-steps');
   await expect(steps).toBeVisible();
-  await expect(steps.locator('a[href="/evidence"]')).toHaveCount(1);
+  await expect(steps.locator('a[href="/evidence/"]')).toHaveCount(1);
   await expect(steps.locator('a[href*="bcassessment.ca"]')).toHaveCount(2);
   await expect(steps.locator('a[href*="assessmentappeal.bc.ca"]')).toHaveCount(1);
 });

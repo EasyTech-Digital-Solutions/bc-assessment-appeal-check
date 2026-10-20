@@ -71,8 +71,8 @@ test('downloading the calendar sends calendar_download', async ({ page }) => {
 test('tool buttons send tool_cta_click', async ({ page }) => {
   await page.goto('/');
   await page.evaluate(() => document.addEventListener('click', (e) => e.preventDefault()));
-  await page.click('a.btn[href="/home-owner-grant"]');
-  await page.click('a.btn[href="/deferment"]');
+  await page.click('a.btn[href="/home-owner-grant/"]');
+  await page.click('a.btn[href="/deferment/"]');
   const tools = (await events(page)).filter((e) => e.name === 'tool_cta_click').map((e) => e.params.tool);
   expect(tools).toEqual(['grant', 'deferment']);
 });
