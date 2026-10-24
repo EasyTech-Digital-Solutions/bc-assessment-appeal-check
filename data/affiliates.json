@@ -10,8 +10,8 @@
     },
     "ratehub_mortgage_renewal": {
       "program": "Ratehub",
-      "label": "Compare mortgage renewal rates",
-      "url": "",
+      "label": "Compare mortgage rates",
+      "url": "https://www.ratehub.ca/mortgages?aff_id=1082",
       "pages": ["home-owner-grant"],
       "signup": "https://www.ratehub.ca/affiliate-program"
     },
