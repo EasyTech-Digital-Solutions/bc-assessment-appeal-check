@@ -119,3 +119,10 @@ test('no event carries a typed dollar value', async ({ page }) => {
   expect(text).not.toContain('987654');
   expect(text).not.toContain('876543');
 });
+
+test('GA4 is not configured off the production host', async ({ page }) => {
+  await page.goto('/');
+  const cmds = await page.evaluate(() => (window.dataLayer || []).map((a) => a[0]));
+  expect(cmds).not.toContain('config');
+  expect(await page.evaluate(() => typeof window.gtag)).toBe('function');
+});
