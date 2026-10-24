@@ -81,7 +81,7 @@ test('no lead form, referral or licensed wording anywhere on the site', () => {
 
 test('repo only files are hidden from the public site', () => {
   const routes = JSON.parse(read('_routes.json'));
-  for (const r of ['/docs/*', '/scripts/*', '/tests/*', '/functions/*', '/README.md', '/package.json', '/package-lock.json', '/wrangler.toml', '/playwright.config.js', '/.github/*']) {
+  for (const r of ['/docs/*', '/scripts/*', '/tests/*', '/functions/*', '/README.md', '/CLAUDE.md', '/.claudeignore', '/.gitignore', '/.gitattributes', '/package.json', '/package-lock.json', '/wrangler.toml', '/playwright.config.js', '/.github/*']) {
     expect(routes.include, r).toContain(r);
   }
   // Public site files must not be caught by the hide rule.
